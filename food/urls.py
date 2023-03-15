@@ -1,9 +1,9 @@
 from django.urls import path
+from .views import view_index, show_order
 
-
-from food import views
-
+app_name = 'food'
 
 urlpatterns = [
-    path('order/', views.show_order),
+    path('', view_index, name='index').
+    path('order/', show_order, name='show_order'),
 ]

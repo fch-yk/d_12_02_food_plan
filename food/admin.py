@@ -3,6 +3,7 @@ from django.utils.html import format_html
 from django.shortcuts import reverse
 
 from .models import Dish, DishItem, Product, Sale, Subscription
+from users.models import User
 
 
 class DishItemInline(admin.TabularInline):
@@ -85,3 +86,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
         'duration',
         'price',
     ]
+
+
+@admin.register(User)
+class UserADmin(admin.ModelAdmin):
+    pass
