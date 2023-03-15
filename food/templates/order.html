@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,15 +29,15 @@
                 <h5 class="text-secondary mb-3">Вам будет доступно 4 типа меню: Классическое, Низкоуглеводное, Вегетарианское и Кето.</h5>
                 <div class="row mb-5">
                     <div class="col-6 col-md-3">
-                        
+
                         <label for="classic" class="position-relative" style="cursor: pointer;">
-                            <img src="img/menu_classical.png" alt="" class="w-100">
+                            <img src="{% static 'food/menu_classical.png' %}" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="classic" value="classic" class="foodplan_selected d-none">
                             <div class="img_selected" id="img1"></div>
                         </label>
                     </div>
                     <div class="col-6 col-md-3">
-                        
+
                         <label for="low" class="position-relative" style="cursor: pointer;">
                             <img src="img/menu_nizkougl.png" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="low" value="low" class="foodplan_selected d-none">
@@ -45,7 +45,7 @@
                         </label>
                     </div>
                     <div class="col-6 col-md-3">
-                        
+
                         <label for="veg" class="position-relative" style="cursor: pointer;">
                             <img src="img/menu_veg.png" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="veg" value="veg" class="foodplan_selected d-none">
@@ -53,7 +53,7 @@
                         </label>
                     </div>
                     <div class="col-6 col-md-3">
-                        
+
                         <label for="keto" class="position-relative" style="cursor: pointer;">
                             <img src="img/menu_keto.png" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="keto" value="keto" class="foodplan_selected d-none">
