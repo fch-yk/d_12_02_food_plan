@@ -33,6 +33,7 @@ class Dish(models.Model):
     )
     image = models.ImageField(
         'картинка',
+        upload_to='images',
         blank=True,
     )
 
