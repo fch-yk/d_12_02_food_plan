@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Dish, DishItem, Product, Sale, Subscription
+from users.models import User
 
 
 class DishItemInline(admin.TabularInline):
@@ -59,3 +60,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
         'duration',
         'price',
     ]
+
+
+@admin.register(User)
+class UserADmin(admin.ModelAdmin):
+    pass
