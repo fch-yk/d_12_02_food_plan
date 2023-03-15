@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0018_alter_user_username'),
+        ('auth', '__latest__'),
         ('food', '0002_alter_dish_image'),
     ]
 
