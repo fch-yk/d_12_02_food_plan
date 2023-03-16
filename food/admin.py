@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.shortcuts import reverse
 
-from .models import Dish, Sale, Subscription
+from .models import Dish, Sale, Subscription, DishCategory
 from users.models import User
 
 
@@ -17,6 +17,10 @@ class DishAdmin(admin.ModelAdmin):
         'title',
         'description',
         'get_image_list_preview',
+    ]
+
+    list_filter = [
+        'categories',
     ]
 
     def get_image_preview(self, obj):
@@ -65,3 +69,13 @@ class SubscriptionAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserADmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(DishCategory)
+class DishCategoryAdmin(admin.ModelAdmin):
+    readonly_fields = ['id']
+
+    list_display = [
+        'id',
+        'title',
+    ]
