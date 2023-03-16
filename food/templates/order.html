@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-  {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +31,7 @@
                     <div class="col-6 col-md-3">
 
                         <label for="classic" class="position-relative" style="cursor: pointer;">
-                            <img src="{% static 'food/menu_classical.png' %}" alt="" class="w-100">
+                            <img src="{% static 'img/menu_classical.png' %}" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="classic" value="classic" class="foodplan_selected d-none">
                             <div class="img_selected" id="img1"></div>
                         </label>
@@ -39,7 +39,7 @@
                     <div class="col-6 col-md-3">
 
                         <label for="low" class="position-relative" style="cursor: pointer;">
-                            <img src="img/menu_nizkougl.png" alt="" class="w-100">
+                            <img src="{% static 'img/menu_nizkougl.png' %}" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="low" value="low" class="foodplan_selected d-none">
                             <div class="img_selected" id="img2"></div>
                         </label>
