@@ -7,3 +7,9 @@ class Index(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
+
+
+def show_order(request):
+    context = {}
+    return render(request, 'order.html', context=context)
+
