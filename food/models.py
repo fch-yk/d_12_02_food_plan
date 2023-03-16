@@ -23,6 +23,13 @@ class Dish(models.Model):
         blank=True,
     )
 
+    categories = models.ManyToManyField(
+        'DishCategory',
+        related_name='dishes',
+        verbose_name='категория',
+        blank=True
+    )
+
     class Meta:
         verbose_name = 'блюдо'
         verbose_name_plural = 'блюда'
@@ -70,3 +77,17 @@ class Sale(models.Model):
     class Meta:
         verbose_name = 'продажа'
         verbose_name_plural = 'продажи'
+
+
+class DishCategory(models.Model):
+    title = models.CharField(
+        verbose_name='название',
+        max_length=50
+    )
+
+    class Meta:
+        verbose_name = 'категория блюд'
+        verbose_name_plural = 'категории блюд'
+
+    def __str__(self):
+        return self.title
