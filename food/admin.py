@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.shortcuts import reverse
 
 from .models import Dish, Sale, Subscription, DishCategory
-from users.models import User
+# from users.models import User
 
 
 @admin.register(Dish)
@@ -64,11 +64,6 @@ class SubscriptionAdmin(admin.ModelAdmin):
         'duration',
         'price',
     ]
-
-
-@admin.register(User)
-class UserADmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(DishCategory)
