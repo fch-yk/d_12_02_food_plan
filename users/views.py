@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.urls import reverse
 from django.contrib import auth, messages
@@ -15,7 +15,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('food:index'))
+                return HttpResponseRedirect(reverse('food:main'))
     else:
         form = UserLoginForm()
 
@@ -41,6 +41,12 @@ def register(request):
     }
 
     return render(request, 'users/registration.html', context)
+
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('food:main'))
+
 
 
 @login_required(login_url='users:login')
