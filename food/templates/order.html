@@ -64,17 +64,18 @@
                     </div>
                 </div>
                 <h2><strong>Выберите подходящий тариф</strong></h2>
-                <form id="order">
+                <form id="order" method="post" action="postorder">
+                  {% csrf_token %}
                 <table class="table text-center text-truncate mb-5">
                     <tbody>
                         <tr>
                             <th scope="row" class="text-start">Срок</th>
                             <td>
-                                <select class="form-select">
-                                    <option value="0" selected>1 мес.</option>
-                                    <option value="1">3 мес.</option>
-                                    <option value="2">6 мес.</option>
-                                    <option value="3">12 мес.</option>
+                                <select name="term" class="form-select">
+                                    <option value="1" selected>1 мес.</option>
+                                    <option value="3">3 мес.</option>
+                                    <option value="6">6 мес.</option>
+                                    <option value="12">12 мес.</option>
                                 </select>
                             </td>
                         </tr>
