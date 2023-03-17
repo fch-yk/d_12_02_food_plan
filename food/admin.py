@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.shortcuts import reverse
 
-from .models import Dish, Sale, Subscription, DishCategory
-# from users.models import User
+from .models import Dish, Sale, Subscription, DishCategory, Meal
 
 
 @admin.register(Dish)
@@ -73,4 +72,15 @@ class DishCategoryAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'title',
+    ]
+
+
+@admin.register(Meal)
+class MealAdmin(admin.ModelAdmin):
+    readonly_fields = ['id']
+
+    list_display = [
+        'id',
+        'title',
+        'position'
     ]
