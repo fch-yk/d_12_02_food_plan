@@ -91,3 +91,24 @@ class DishCategory(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Meal(models.Model):
+    title = models.CharField(
+        verbose_name='название',
+        max_length=50
+    )
+
+    position = models.PositiveSmallIntegerField(
+        verbose_name="Position",
+        default=0,
+        db_index=True,
+    )
+
+    class Meta:
+        verbose_name = 'прием пищи'
+        verbose_name_plural = 'приемы пищи'
+        ordering = ['position']
+
+    def __str__(self):
+        return self.title
