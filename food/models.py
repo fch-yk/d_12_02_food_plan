@@ -30,6 +30,13 @@ class Dish(models.Model):
         blank=True
     )
 
+    meals = models.ManyToManyField(
+        'Meal',
+        related_name='dishes',
+        verbose_name='приемы пищи',
+        blank=True
+    )
+
     class Meta:
         verbose_name = 'блюдо'
         verbose_name_plural = 'блюда'
