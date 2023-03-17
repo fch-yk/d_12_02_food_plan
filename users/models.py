@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from food.models import Subscription, Dish
+from food.models import Subscription, Dish, DishCategory, Meal
 
 
 class User(AbstractUser):
@@ -33,3 +33,26 @@ class User(AbstractUser):
         upload_to='users_images',
         blank=True,
     )
+
+    allergy_to = models.ManyToManyField(
+        DishCategory,
+        related_name='allergics',
+        verbose_name='аллергия на',
+        blank=True
+    )
+
+    meals = models.ManyToManyField(
+        Meal,
+        related_name='users',
+        verbose_name='приемы пищи',
+        blank=True
+    )
+
+    persons_number = models.PositiveSmallIntegerField(
+        verbose_name='количество персон',
+        default=1,
+    )
+
+    class Meta:
+        verbose_name = 'пользователь'
+        verbose_name_plural = 'пользователи'

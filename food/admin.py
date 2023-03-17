@@ -2,12 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.shortcuts import reverse
 
-from .models import Dish, DishItem, Product, Sale, Subscription
-from users.models import User
-
-
-class DishItemInline(admin.TabularInline):
-    model = DishItem
+from .models import Dish, Sale, Subscription, DishCategory, Meal
 
 
 @admin.register(Dish)
@@ -22,7 +17,10 @@ class DishAdmin(admin.ModelAdmin):
         'description',
         'get_image_list_preview',
     ]
-    inlines = [DishItemInline]
+
+    list_filter = [
+        'categories',
+    ]
 
     def get_image_preview(self, obj):
         if not obj.image:
@@ -43,27 +41,6 @@ class DishAdmin(admin.ModelAdmin):
             edit_url=edit_url, src=obj.image.url
         )
     get_image_list_preview.short_description = 'превью'
-
-
-@admin.register(DishItem)
-class DishItemAdmin(admin.ModelAdmin):
-    readonly_fields = ['id']
-
-    list_display = [
-        'dish',
-        'product',
-        'quantity',
-    ]
-
-
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    readonly_fields = ['id']
-
-    list_display = [
-        'title',
-        'price',
-    ]
 
 
 @admin.register(Sale)
@@ -88,6 +65,22 @@ class SubscriptionAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(User)
-class UserADmin(admin.ModelAdmin):
-    pass
+@admin.register(DishCategory)
+class DishCategoryAdmin(admin.ModelAdmin):
+    readonly_fields = ['id']
+
+    list_display = [
+        'id',
+        'title',
+    ]
+
+
+@admin.register(Meal)
+class MealAdmin(admin.ModelAdmin):
+    readonly_fields = ['id']
+
+    list_display = [
+        'id',
+        'title',
+        'position'
+    ]
