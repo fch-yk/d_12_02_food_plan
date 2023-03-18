@@ -61,10 +61,11 @@
                         <th scope="row" class="text-start">Срок</th>
                         <td>
                             <select name="term" class="form-select">
-                                <option value="1" selected>1 мес.</option>
-                                <option value="3">3 мес.</option>
-                                <option value="6">6 мес.</option>
-                                <option value="12">12 мес.</option>
+
+                              {% for subscription in subscriptions %}
+                                <option value="{{ subscription.id }}">{{ subscription.duration }} мес.</option>
+                              {% endfor %}
+
                             </select>
                         </td>
                     </tr>
@@ -129,42 +130,7 @@
                             </div>
 
                           {% endfor %}
-                            <!-- <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy1">
-                                <label class="form-check-label" for="allergy1">
-                                    Рыба и морепродукты
-                                </label>
-                            </div>
-                            <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy2">
-                                <label class="form-check-label" for="allergy2">
-                                    Мясо
-                                </label>
-                            </div>
-                            <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy3">
-                                <label class="form-check-label" for="allergy3">
-                                    Зерновые
-                                </label>
-                            </div>
-                            <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy3">
-                                <label class="form-check-label" for="allergy3">
-                                    Продукты пчеловодства
-                                </label>
-                            </div>
-                            <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy3">
-                                <label class="form-check-label" for="allergy3">
-                                    Орехи и бобовые
-                                </label>
-                            </div>
-                            <div class="form-check d-flex justify-content-start">
-                                <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="" name="allergy3">
-                                <label class="form-check-label" for="allergy3">
-                                    Молочные продукты
-                                </label>
-                            </div> -->
+
                         </td>
                     </tr>
                 </tbody>

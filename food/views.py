@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views import View
 
-from food.models import Dish, DishCategory
+from food.models import Dish, DishCategory, Subscription
 
 
 class Index(View):
@@ -19,10 +19,11 @@ class Index(View):
 
 
 def show_order(request):
-    dish_categories = DishCategory.objects.all()
     context = {
-        'dish_categories': dish_categories
+        'dish_categories': DishCategory.objects.all(),
+        'subscriptions': Subscription.objects.all().order_by('duration'),
     }
+
     return render(request, 'food/order.html', context=context)
 
 
@@ -37,7 +38,10 @@ def post_order(request):
 
     allergies = ','.join(allergies_ids)
 
-    context = {'allergies': allergies}
+    context = {
+        'allergies': allergies,
+        'subscription': request.POST.get("term"),
+    }
     return render(request, 'food/payment.html', context=context)
 
 
@@ -49,6 +53,14 @@ def pay(request):
         allergies_ids = [int(id) for id in allergies.split(',')]
         allergies = DishCategory.objects.filter(id__in=allergies_ids)
         user.allergy_to.set(allergies)
+    else:
+        user.allergy_to.clear()
+
+    user.subscription = Subscription.objects.get(
+        id=int(request.POST.get('subscription'))
+    )
+
+    user.save(update_fields=['subscription'])
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
