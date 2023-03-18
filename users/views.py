@@ -30,9 +30,12 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Вы успешно зарегестрировались')
-            return HttpResponseRedirect(reverse('users:login'))
+            try:
+                form.save()
+                messages.success(request, 'Вы успешно зарегестрировались')
+                return HttpResponseRedirect(reverse('users:login'))
+            except:
+                messages.error(request, 'Пользователь с такими данными уже существует')
     else:
         form = UserRegistrationForm()
 
@@ -51,6 +54,7 @@ def logout(request):
 
 @login_required(login_url='users:login')
 def profile(request):
+    print(request.POST)
     user=request.user
     context = {
         'user': user
@@ -58,9 +62,20 @@ def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=user)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('users:profile'))
+            if request.POST.get('password1') != request.POST.get('password2'):
+                messages.error(request, 'Пароли не совпадают!')
+            else:
+                try:
+                    form.save()
+                    return HttpResponseRedirect(reverse('users:profile'))
+                except:
+                    messages.error(request, 'Пользователь с такими данными уже существует')
+                
     else:
         form = UserProfileForm(instance=user)
+
+    context = {
+        'form': form,
+    }
     
     return render(request, 'users/lk.html', context=context)
