@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views import View
+from django.utils.timezone import localdate
 
 from food.models import Dish, DishCategory, Subscription
 
@@ -61,7 +62,14 @@ def pay(request):
         id=int(request.POST.get('subscription'))
     )
     user.persons_number = int(request.POST.get('persons_number'))
-    user.save(update_fields=['subscription', 'persons_number'])
+    user.subscription_start_at = localdate()
+    user.save(
+        update_fields=[
+            'subscription',
+            'persons_number',
+            'subscription_start_at'
+        ]
+    )
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
