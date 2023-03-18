@@ -41,6 +41,7 @@ def post_order(request):
     context = {
         'allergies': allergies,
         'subscription': request.POST.get("term"),
+        'persons_number': request.POST.get('persons_number'),
     }
     return render(request, 'food/payment.html', context=context)
 
@@ -59,8 +60,8 @@ def pay(request):
     user.subscription = Subscription.objects.get(
         id=int(request.POST.get('subscription'))
     )
-
-    user.save(update_fields=['subscription'])
+    user.persons_number = int(request.POST.get('persons_number'))
+    user.save(update_fields=['subscription', 'persons_number'])
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
