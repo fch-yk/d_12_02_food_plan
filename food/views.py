@@ -29,3 +29,8 @@ def post_order(request):
     # return HttpResponse(f"<h2>Name: {name}  Age: {age}</h2>")
     context = {}
     return render(request, 'food/payment.html', context=context)
+
+
+def pay(request):
+    context = {}
+    return render(request, 'food/payment_success.html', context=context)
