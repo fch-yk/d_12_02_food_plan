@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.utils.timezone import localdate, localtime
 from django.views import View
+from django.views.generic import ListView, DetailView
 
 from food.models import Dish, DishCategory, Meal, Sale, Subscription
 
@@ -17,6 +18,31 @@ class Index(View):
             'dishes': dishes
         }
         return render(request, self.template_name, context)
+
+
+class UserRecieptsView(ListView):
+    """Представление вывода списка рецептов для пользователя"""
+    model = Dish
+
+    def get_queryset(self):
+        allergy_to = self.request.user.allergy_to.all().values_list('id', flat=True)
+        disliked_dishes = self.request.user.disliked_dishes.all().values_list('id', flat=True)
+        return super().get_queryset().exclude(categories__id__in=allergy_to).exclude(id__in=disliked_dishes)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Меню'
+        return context
+
+
+class DishDetailView(DetailView):
+    """Представление просмотра рецепта"""
+    model = Dish
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Просмотр рецепта'
+        return context
 
 
 def show_order(request):
