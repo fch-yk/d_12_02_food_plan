@@ -53,8 +53,18 @@ def logout(request):
 @login_required(login_url='users:login')
 def profile(request):
     user = request.user
+
     subscription = user.subscription
     allergy_to = user.allergy_to.all().values_list('title', flat=True)
+    context = {
+        'user': user,
+        'allergy': allergy_to
+    }
+
+    if subscription:
+        context['subscription'] = subscription.title
+        context['subscription_detail'] = subscription.description
+
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=user)
         if form.is_valid():
@@ -70,12 +80,6 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user)
 
-    context = {
-        'user': user,
-        'form': form,
-        'subscription': subscription.title,
-        'subscription_detail': subscription.description,
-        'allergy': allergy_to
-    }
+    context['form'] = form
 
     return render(request, 'users/lk.html', context=context)
