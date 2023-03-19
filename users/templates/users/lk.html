@@ -15,7 +15,7 @@
                         <h2 class="text-center"><strong>Личный кабинет</strong></h2>
                         {% if user.is_staff%}
                           <div class="d-block mt-3">
-                            <a class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green" href="{% url 'food:show_order' %}">Отчет по продажам</a>
+                            <a class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green" href="{% url 'food:show_sales_report' %}">Отчет по продажам</a>
                           </div>
                         {% endif %}
                     </div>

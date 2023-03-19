@@ -1,0 +1,30 @@
+.report-header {
+  text-align: center;
+  color: green;
+}
+
+table,
+th,
+td {
+  border: 1px solid green;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+table.report {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+table.report .description {
+  text-align: left;
+}
+
+table.report .parameter {
+  text-align: right;
+}
+
+table.report .total {
+  font-weight: bold;
+}
