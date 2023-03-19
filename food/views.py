@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views import View
-from django.utils.timezone import localdate
+from django.utils.timezone import localdate, localtime
 
-from food.models import Dish, DishCategory, Subscription, Meal
+from food.models import Dish, DishCategory, Subscription, Meal, Sale
 
 
 class Index(View):
@@ -74,9 +74,10 @@ def pay(request):
     else:
         user.meals.clear()
 
-    user.subscription = Subscription.objects.get(
+    subscription = Subscription.objects.get(
         id=int(request.POST.get('subscription'))
     )
+    user.subscription = subscription
     user.persons_number = int(request.POST.get('persons_number'))
     user.subscription_start_at = localdate()
     user.save(
@@ -85,6 +86,12 @@ def pay(request):
             'persons_number',
             'subscription_start_at'
         ]
+    )
+
+    Sale.objects.create(
+        sum=subscription.price,
+        payed_at=localtime(),
+        user=user,
     )
 
     context = {}
