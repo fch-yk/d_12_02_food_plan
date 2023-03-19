@@ -1,0 +1,38 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for item in object_list %}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 d-flex justify-content-center">
+                        <div class="card foodplan__card_borderless">
+                            <img src="{{ item.image.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8 d-flex flex-column justify-content-between">
+                        <div class="row">
+                            <h2><a href="{% url 'food:dish_detail' item.pk %}">{{ item.title }}</a></h2>
+                            <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
+                                <h6>{{ item.description }}</h6>
+                                <h6>{{ item.recipe }}</h6>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <small class="link-secondary">Ингредиенты:</small>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                </ul>
+                                <small class="link-secondary">Общая калорийность: 1000 ккал</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+{% endblock %}
