@@ -1,0 +1,31 @@
+<!--
+    Layout source:
+        payment successful
+            https://codepen.io/Ghost3/pen/XyVBBv
+-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru" >
+<head>
+  <meta charset="UTF-8">
+  <title>Оплата прошла!</title>
+  <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css'>
+  <link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
+
+</head>
+<body>
+
+<div class="payment-success">
+  <div class="body">
+    <h2 class="title">Оплата прошла!</h2>
+    <img class="main-img" src="https://res.cloudinary.com/dw1zug8d6/image/upload/v1542777688/group-3_3x.png" alt="">
+    <p>Оплата успешно прошла! <br>
+Вы можете вернуться на сайт "Food plan".</p>
+    <a class="btn btn-primary button" href="{% url 'food:main' %}">Вернутся на сайт "Food plan"</a>
+  </div>
+</div>
+
+
+</body>
+</html>
