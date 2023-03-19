@@ -1,0 +1,27 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/report.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2 class="report-header">Продажи по месяцам</h2>
+  <table class="report">
+    <tr>
+      <th class="description">Месяц</th>
+      <th class="parameter">Сумма</th>
+    </tr>
+    {% for sale in sales %}
+      <tr>
+        <td class="description">{{ sale.month|date:"F Y" }}</td>
+        <td class="parameter">{{ sale.sum|floatformat:"2g" }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td class="description total">Всего:</td>
+      <td class="parameter total">{{ total|floatformat:"2g" }}</td>
+    </tr>
+  </table>
+{% endblock %}

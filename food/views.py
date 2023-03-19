@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
 from django.shortcuts import redirect, render
 from django.utils.timezone import localdate, localtime
 from django.views import View
@@ -129,3 +131,20 @@ def pay(request):
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
+
+
+def show_sales_report(request):
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    sales = Sale.objects.annotate(
+        month=TruncMonth('payed_at')).values('month').annotate(
+            sum=Sum('sum')
+    ).order_by('month')
+
+    context = {
+        'title': 'Продажи',
+        'sales': sales,
+        'total': Sale.objects.aggregate(Sum('sum'))['sum__sum'],
+    }
+    return render(request, 'food/sales.html', context=context)
