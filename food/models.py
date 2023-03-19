@@ -51,6 +51,10 @@ class Subscription(models.Model):
         verbose_name='название',
         max_length=50
     )
+    description = models.TextField(
+        verbose_name='описание',
+        blank=True,
+    )
     duration = models.PositiveSmallIntegerField(
         verbose_name='количество',
         validators=[MinValueValidator(1)],

@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.urls import reverse
 from django.contrib import auth, messages
@@ -51,14 +50,11 @@ def logout(request):
     return HttpResponseRedirect(reverse('food:main'))
 
 
-
 @login_required(login_url='users:login')
 def profile(request):
-    print(request.POST)
-    user=request.user
-    context = {
-        'user': user
-    }
+    user = request.user
+    subscription = user.subscription
+    allergy_to = user.allergy_to.all().values_list('title', flat=True)
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=user)
         if form.is_valid():
@@ -70,12 +66,16 @@ def profile(request):
                     return HttpResponseRedirect(reverse('users:profile'))
                 except:
                     messages.error(request, 'Пользователь с такими данными уже существует')
-                
+
     else:
         form = UserProfileForm(instance=user)
 
     context = {
+        'user': user,
         'form': form,
+        'subscription': subscription.title,
+        'subscription_detail': subscription.description,
+        'allergy': allergy_to
     }
-    
+
     return render(request, 'users/lk.html', context=context)
