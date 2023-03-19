@@ -53,9 +53,7 @@ def logout(request):
 @login_required(login_url='users:login')
 def profile(request):
     user = request.user
-    context = {
-        'user': user
-    }
+    subscription = user.subscription
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=user)
         if form.is_valid():
@@ -72,6 +70,7 @@ def profile(request):
         form = UserProfileForm(instance=user)
 
     context = {
+        'user': user,
         'form': form,
     }
 
