@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.utils.timezone import localdate
 
-from food.models import Dish, DishCategory, Subscription
+from food.models import Dish, DishCategory, Subscription, Meal
 
 
 class Index(View):
@@ -23,24 +23,26 @@ def show_order(request):
     context = {
         'dish_categories': DishCategory.objects.all(),
         'subscriptions': Subscription.objects.all().order_by('duration'),
+        'meals': Meal.objects.all(),
     }
 
     return render(request, 'food/order.html', context=context)
 
 
 def post_order(request):
+    allergies_ids = [
+        str(dish_category.id) for dish_category in DishCategory.objects.all()
+        if request.POST.get(f"allergy_{dish_category.id}")
+    ]
 
-    allergies_ids = []
-    dish_categories = DishCategory.objects.all()
-    for dish_category in dish_categories:
-        allergy_id = request.POST.get(f"allergy_{dish_category.id}")
-        if allergy_id:
-            allergies_ids.append(allergy_id)
-
-    allergies = ','.join(allergies_ids)
+    meals_ids = [
+        str(meal.id) for meal in Meal.objects.all()
+        if request.POST.get(f'meal_{meal.id}')
+    ]
 
     context = {
-        'allergies': allergies,
+        'allergies': ','.join(allergies_ids),
+        'meals': ','.join(meals_ids),
         'subscription': request.POST.get("term"),
         'persons_number': request.POST.get('persons_number'),
     }
@@ -49,14 +51,24 @@ def post_order(request):
 
 def pay(request):
     user = get_user_model().objects.get(id=request.user.id)
-    allergies = request.POST.get('allergies')
 
+    allergies = request.POST.get('allergies')
     if allergies:
         allergies_ids = [int(id) for id in allergies.split(',')]
-        allergies = DishCategory.objects.filter(id__in=allergies_ids)
-        user.allergy_to.set(allergies)
+        user.allergy_to.set(
+            DishCategory.objects.filter(id__in=allergies_ids)
+        )
     else:
         user.allergy_to.clear()
+
+    meals = request.POST.get('meals')
+    if meals:
+        meals_ids = [int(id) for id in meals.split(',')]
+        user.meals.set(
+            Meal.objects.filter(id__in=meals_ids)
+        )
+    else:
+        user.meals.clear()
 
     user.subscription = Subscription.objects.get(
         id=int(request.POST.get('subscription'))
