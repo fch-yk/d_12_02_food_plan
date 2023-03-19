@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 
 from food.models import Dish
+from django.urls import reverse
 
 
 class Index(View):
@@ -28,4 +29,4 @@ def post_order(request):
     # name = request.POST.get("name", "Undefined")
     # age = request.POST.get("age", 1)
     # return HttpResponse(f"<h2>Name: {name}  Age: {age}</h2>")
-    return HttpResponse("Hello")
+    return redirect(reverse('food:main'))

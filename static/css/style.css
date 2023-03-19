@@ -234,6 +234,33 @@ body {
     position: relative;
 }
 
+.register-success{
+    background-color: #91B93E;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    padding-top: 10px;
+    opacity: 0.8;
+    border-radius: 0.25rem;
+}
+
+.error {
+    position: relative;
+    background-color: #b33737;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    padding-top: 10px;
+    opacity: 0.8;
+    border-radius: 0.25rem;
+}
+
+.x-mark {
+    display: block;
+    position: absolute;
+    right: 12px;
+    top: 1px;
+}
 @media (min-width: 768px) {
     .nav-item__border:hover:before {
         content: "";

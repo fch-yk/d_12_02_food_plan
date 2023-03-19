@@ -38,17 +38,16 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserProfileForm(UserChangeForm):
-    username = forms.CharField(
-        widget=forms.TextInput(attrs={'read_only': True}))
-    email = forms.CharField(widget=forms.EmailInput(attrs={'read_only': True}))
-    image = forms.ImageField(widget=forms.FileInput(), required=False) 
-
+    username = forms.CharField(widget=forms.TextInput(attrs={'id': 'username', 'name': 'username'}), required=False)
+    email = forms.CharField(widget=forms.EmailInput(), required=False, disabled=True)
+    avatar = forms.ImageField(widget=forms.FileInput(), required=False) 
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password1', 'name': 'password1'}), required=False)
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'id': 'password2', 'name': 'password2'}), required=False)
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'image')
+        fields = ('username', 'email', 'avatar', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
-        self.fields['image'].widget.attrs['class'] = 'custom-file-input'
+            field.widget.attrs['class'] = 'form-control'
