@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
-from django.views import View
+from django.shortcuts import redirect, render
 from django.utils.timezone import localdate, localtime
+from django.views import View
 
-from food.models import Dish, DishCategory, Subscription, Meal, Sale
+from food.models import Dish, DishCategory, Meal, Sale, Subscription
 
 
 class Index(View):
@@ -20,6 +20,9 @@ class Index(View):
 
 
 def show_order(request):
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
     context = {
         'dish_categories': DishCategory.objects.all(),
         'subscriptions': Subscription.objects.all().order_by('duration'),
