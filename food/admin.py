@@ -50,6 +50,7 @@ class SaleAdmin(admin.ModelAdmin):
     list_display = [
         'sum',
         'payed_at',
+        'user',
     ]
     pass
 

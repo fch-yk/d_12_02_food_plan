@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -79,6 +80,14 @@ class Sale(models.Model):
     payed_at = models.DateTimeField(
         verbose_name='дата оплаты',
         db_index=True,
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='пользователь',
+        on_delete=models.PROTECT,
+        related_name='sales',
+        null=True,
     )
 
     class Meta:
