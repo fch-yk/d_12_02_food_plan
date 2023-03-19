@@ -99,3 +99,7 @@ def pay(request):
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
+
+
+def show_sales_report(request):
+    return redirect('users:login')

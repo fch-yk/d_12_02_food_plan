@@ -13,8 +13,13 @@
                             <strong><small><a href="#" class="link-secondary fw-light"></a></small></strong>
                         </h4>
                         <h2 class="text-center"><strong>Личный кабинет</strong></h2>
+                        {% if user.is_staff%}
+                          <div class="d-block mt-3">
+                            <a class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green" href="{% url 'food:show_order' %}">Отчет по продажам</a>
+                          </div>
+                        {% endif %}
                     </div>
-                    
+
                     <div class="card col-12 col-md-2 p-3 mb-3 d-flex flex-column align-items-center foodplan__shadow">
                         <div class="position-relative">
                             <img src="{% if user.avatar %} {{ user.avatar.url }} {% else %} {% static 'img/default_avatar.png'%} {% endif %}" alt="" width="100" height="100" class="rounded-pill">
@@ -58,30 +63,30 @@
                                                 <label for="{{form.username.id_for_label}}" class="form-label">Логин</label>
                                                 <small><a href="#" class="link-dark foodplan_green" onCLick='ChangeUsername()'>изменить</a></small>
                                             </div>
-                                        
+
                                             {{form.username}}
                                         </div>
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="{{form.email.id_for_label}}" class="form-label">Email</label>
                                             </div>
-                                        
+
                                             {{form.email}}
                                         </div>
 
-            
+
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="{{form.password1.id_for_label}}" class="form-label">Пароль</label>
                                                 <small><a href="#" class="link-dark foodplan_green" onCLick='ChangePassword()'>изменить</a></small>
                                             </div>
-                                        
+
                                             {{form.password1}}
 
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="{{form.password2.id_for_label}}" class="form-label">Подтверждение пароля</label>
                                             </div>
-                                        
+
                                             {{form.password2}}
                                         </div>
                                         <div class="d-block">
@@ -121,18 +126,19 @@
                                                     <div class="d-flex flex-row justify-content-between">
                                                         <small>Кол-во приёмов пищи: </small><small>4</small>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
     {% endblock %}
 </body>
