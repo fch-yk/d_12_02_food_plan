@@ -53,7 +53,6 @@ def logout(request):
 @login_required(login_url='users:login')
 def profile(request):
     user = request.user
-
     subscription = user.subscription
     allergy_to = user.allergy_to.all().values_list('title', flat=True)
     context = {
