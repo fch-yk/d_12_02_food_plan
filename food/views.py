@@ -40,10 +40,14 @@ def post_order(request):
         if request.POST.get(f'meal_{meal.id}')
     ]
 
+    subscription_id = int(request.POST.get("term").split(';')[0])
+    sum = Subscription.objects.get(id=subscription_id).price
+
     context = {
         'allergies': ','.join(allergies_ids),
         'meals': ','.join(meals_ids),
-        'subscription': request.POST.get("term"),
+        'subscription': subscription_id,
+        'sum': sum,
         'persons_number': request.POST.get('persons_number'),
     }
     return render(request, 'food/payment.html', context=context)
