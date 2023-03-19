@@ -23,10 +23,14 @@ def show_order(request):
     if not request.user.is_authenticated:
         return redirect('users:login')
 
+    subscriptions = Subscription.objects.all().order_by('duration')
+    sum = subscriptions[0].price if subscriptions.exists() else 0
+
     context = {
         'dish_categories': DishCategory.objects.all(),
-        'subscriptions': Subscription.objects.all().order_by('duration'),
+        'subscriptions': subscriptions,
         'meals': Meal.objects.all(),
+        'sum': sum,
     }
 
     return render(request, 'food/order.html', context=context)
