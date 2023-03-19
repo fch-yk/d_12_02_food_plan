@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from .forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.urls import reverse
 from django.contrib import auth, messages
@@ -48,10 +47,9 @@ def logout(request):
     return HttpResponseRedirect(reverse('food:main'))
 
 
-
 @login_required(login_url='users:login')
 def profile(request):
-    user=request.user
+    user = request.user
     context = {
         'user': user
     }
@@ -62,5 +60,5 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=user)
-    
+
     return render(request, 'users/lk.html', context=context)
