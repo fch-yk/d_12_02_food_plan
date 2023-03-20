@@ -22,7 +22,9 @@ A user can pay for a subscription right on the website:
 
 ### Personal cabinet
 
-The image will be inserted later.
+A user sees his settings, subscription, dishes, etc.:
+
+![personal cabinet](screenshots/personal_cabinet.gif)
 
 ### Sales report
 
