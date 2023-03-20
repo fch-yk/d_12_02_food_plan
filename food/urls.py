@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import DishDetailView, Index, UserRecieptsView, dislike, like, post_order, show_order, pay, show_sales_report
+from .views import DishDetailView, Index, UserRecieptsView, dislike, like, post_order, show_order, pay,\
+    show_sales_report
 
 app_name = 'food'
 
