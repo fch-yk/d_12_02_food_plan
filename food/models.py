@@ -45,6 +45,12 @@ class Dish(models.Model):
     def __str__(self):
         return self.title
 
+    def get_user_like(self):
+        return self.liked_dishs.all()
+
+    def get_user_dislike(self):
+        return self.disliked_dishs.all()
+
 
 class Subscription(models.Model):
     title = models.CharField(

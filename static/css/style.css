@@ -272,3 +272,50 @@ body {
         background-color: #91B93E;
     }
 }
+
+/* 3.10 Pagination */
+.page-item .page-link {
+    color: #6777ef;
+    border-radius: 3px;
+    margin: 5px; }
+  .page-item.active .page-link {
+    background-color: #6777ef;
+    border-color: #6777ef; }
+  .page-item.disabled .page-link {
+    border-color: transparent;
+    background-color: #f9fafe;
+    color: #6777ef;
+    opacity: .6; }
+
+.page-item {
+    margin: 5px;
+    align-self: center;
+}
+
+.pagination_dish {
+    align-self: center;
+}
+
+.dish_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.like {
+    font-size: 30px;
+    list-style-type: none;
+}
+
+.dislike {
+    font-size: 30px;
+    list-style-type: none;
+}
+
+.like-icons {
+    display: flex;
+}
+
+.dish-title {
+    display: flex;
+    justify-content: space-between;
+}
