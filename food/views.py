@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.timezone import localdate, localtime
@@ -85,10 +87,14 @@ def show_order(request):
     if not request.user.is_authenticated:
         return redirect('users:login')
 
+    subscriptions = Subscription.objects.all().order_by('duration')
+    sum = subscriptions[0].price if subscriptions.exists() else 0
+
     context = {
         'dish_categories': DishCategory.objects.all(),
-        'subscriptions': Subscription.objects.all().order_by('duration'),
+        'subscriptions': subscriptions,
         'meals': Meal.objects.all(),
+        'sum': sum,
     }
 
     return render(request, 'food/order.html', context=context)
@@ -161,3 +167,20 @@ def pay(request):
 
     context = {}
     return render(request, 'food/payment_success.html', context=context)
+
+
+def show_sales_report(request):
+    if not request.user.is_authenticated:
+        return redirect('users:login')
+
+    sales = Sale.objects.annotate(
+        month=TruncMonth('payed_at')).values('month').annotate(
+            sum=Sum('sum')
+    ).order_by('month')
+
+    context = {
+        'title': 'Продажи',
+        'sales': sales,
+        'total': Sale.objects.aggregate(Sum('sum'))['sum__sum'],
+    }
+    return render(request, 'food/sales.html', context=context)

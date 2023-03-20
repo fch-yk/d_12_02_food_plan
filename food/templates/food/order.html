@@ -5,9 +5,9 @@
     <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
         <div class="container">
             <a class="navbar-brand" href="{% url 'food:main' %}">
-                <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="" onload="setSum()">
+                <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
             </a>
-            <h3 id="sum_info" class="text-secondary mt-2 me-2">Стоимость: 00000₽</h3>
+            <h3 id="sum_info" class="text-secondary mt-2 me-2">Стоимость: {{ sum|floatformat:"2g" }} ₽</h3>
             <button form="order" type="submit" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">Оплатить</button>
         </div>
     </nav>
