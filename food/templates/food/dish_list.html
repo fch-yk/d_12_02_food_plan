@@ -2,37 +2,72 @@
 {% load static %}
 
 {% block content %}
-    {% for item in object_list %}
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-4 d-flex justify-content-center">
-                        <div class="card foodplan__card_borderless">
-                            <img src="{{ item.image.url }}" alt="">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-8 d-flex flex-column justify-content-between">
-                        <div class="row">
-                            <h2><a href="{% url 'food:dish_detail' item.pk %}">{{ item.title }}</a></h2>
-                            <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
-                                <h6>{{ item.description }}</h6>
-                                <h6>{{ item.recipe }}</h6>
+    <div class="dish_list">
+        {% for item in object_list %}
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <div class="card foodplan__card_borderless">
+                                <img src="{{ item.image.url }}" alt="">
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <small class="link-secondary">Ингредиенты:</small>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                    <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
-                                </ul>
-                                <small class="link-secondary">Общая калорийность: 1000 ккал</small>
+                        </div>
+                        <div class="col-12 col-md-8 d-flex flex-column justify-content-between">
+                            <div class="row">
+                                <div class="dish-title">
+                                    <h2><a href="{% url 'food:dish_detail' item.pk %}">{{ item.title }}</a></h2>
+                                    <div class="like-icons">
+                                        <li class="like" style="margin-right: 10px;" id="like-{{ item.id }}" data-id="{{ item.id }}">
+                                            <i {% if user in item.get_user_like %}class="fa fa-thumbs-up"{% else %}
+                                            class="fa fa-thumbs-o-up"{% endif %} data-id="{{item.id }}"></i>
+                                        </li>
+                                        <li class="dislike" style="margin-right: 10px;" id="dislike-{{ item.id }}" data-id="{{ item.id }}">
+                                            <i {% if user in item.get_user_dislike %}class="fa fa-thumbs-down"{% else %}
+                                            class="fa fa-thumbs-o-down"{% endif %} data-id="{{item.id }}"></i>
+                                        </li>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
+                                    <h6>{{ item.description }}</h6>
+                                    <h6>{{ item.recipe }}</h6>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    
+                                    <small class="link-secondary">Ингредиенты:</small>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                        <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                        <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                        <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                        <li class="list-group-item disabled"><small>ингредиент (500г.)</small></li>
+                                    </ul>
+                                    <small class="link-secondary">Общая калорийность: 1000 ккал</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    {% endfor %}
+            </section>
+        {% endfor %}
+        <ul class="pagination pagination_dish">
+            <li class="page-item">День </li>
+            {% for page in page_obj.paginator.page_range %}
+                {% if page <= 5 %}
+                    {% if page_obj.number == page %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'food:dishes_list' %}?page={{ page }}">{{ page }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{% url 'food:dishes_list' %}?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="{% static 'js/likes.js' %}"></script>
 {% endblock %}

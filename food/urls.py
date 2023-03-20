@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DishDetailView, Index, UserRecieptsView, post_order, show_order, pay
+from .views import DishDetailView, Index, UserRecieptsView, dislike, like, post_order, show_order, pay
 
 app_name = 'food'
 
@@ -11,4 +11,6 @@ urlpatterns = [
     path('order/', show_order, name='show_order'),
     path('order/postorder', post_order, name='post_order'),
     path('order/pay', pay, name='pay'),
+    path('like/<int:pk>/', like, name='like'),
+    path('dislike/<int:pk>/', dislike, name='dislike')
 ]
