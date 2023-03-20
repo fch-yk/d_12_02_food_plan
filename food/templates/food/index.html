@@ -64,7 +64,7 @@
                             <div class="carousel-item">
                             {% endif %}
                                 <a href="{% url 'food:dish_detail' dish.pk %}">
-                                    <img src="{{ dish.image.url }}" class="d-block w-100" alt="...">
+                                    <img src="{% if dish.image %}{{ dish.image.url }}{% else %}{% static 'img/dish_default.png' %}{% endif %}" class="d-block w-100" alt="...">
                                     <div class="card-img-overlay text-white text-center carousel-item__gradient">
                                         <h5><b>{{ dish.description }}</b></h5>
                                         <h2><b>{{ dish.title }}</b></h2>
