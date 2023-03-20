@@ -88,4 +88,4 @@ python manage.py runserver
 ## Project goals
 
 The project was created for educational purposes.
-It's a lesson for python and web developers at [Devman](https://dvmn.org).
+It's a group project for python and web developers at [Devman](https://dvmn.org).
