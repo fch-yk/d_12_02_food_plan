@@ -20,6 +20,7 @@ class DishAdmin(admin.ModelAdmin):
 
     list_filter = [
         'categories',
+        'meals',
     ]
 
     def get_image_preview(self, obj):
